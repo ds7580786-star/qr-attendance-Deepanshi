@@ -16,18 +16,18 @@ const db = new sqlite3.Database(
 );
 
 db.serialize(() => {
-  db.run(`
+ db.run(`
         CREATE TABLE IF NOT EXISTS users (
             name TEXT,
             username TEXT UNIQUE PRIMARY KEY,
-            password TEXT DEFAULT password,
+            password TEXT DEFAULT 'password',
             role TEXT NOT NULL,
             section TEXT DEFAULT NULL,
             subjectName TEXT DEFAULT NULL
         );
     `);
 
-  db.run(`
+    db.run(`
         CREATE TABLE IF NOT EXISTS attendance (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             studentId TEXT NOT NULL,
@@ -38,16 +38,54 @@ db.serialize(() => {
         );
     `);
 
-  db.run(`
+    db.run(`
         CREATE TABLE IF NOT EXISTS sessions (
             sessionId TEXT PRIMARY KEY,
-            section TEXT,
             courseId TEXT,
             teacherId TEXT,
             startTime DATETIME DEFAULT CURRENT_TIMESTAMP,
             endTime DATETIME,
             status TEXT DEFAULT 'active'
         );
+    `);
+    //Course Table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS courses (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            abbr TEXT UNIQUE           
+        ); 
+    `);
+    //Branches Table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS branches (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              course_id INTEGER,
+              name TEXT NOT NULL,
+              abbr TEXT UNIQUE,
+              FOREIGN KEY (course_id) REFERENCES courses(id)
+        );
+    `);
+    //Classes Table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS classes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            course_id INTEGER,
+            branch_id INTEGER,
+            semester INTEGER,
+            section_id INTEGER,
+            FOREIGN KEY (course_id) REFERENCES courses(id),
+            FOREIGN KEY (branch_id) REFERENCES branches(id),
+            FOREIGN KEY (section_id) REFERENCES sections(id)
+         );
+    `);
+    //Sections Table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS sections (
+            id INTEGER PRIMARY KEY,
+            section_name TEXT NOT NULL,
+            label TEXT
+         );
     `);
 });
 
