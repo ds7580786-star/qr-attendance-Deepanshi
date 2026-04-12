@@ -69,10 +69,12 @@ db.serialize(() => {
     //Classes Table
     db.run(`
         CREATE TABLE IF NOT EXISTS classes (
-            course_id INTEGER PRIMARY KEY,
-            branch_id INTEGER PRIMARY KEY,
-            semester INTEGER PRIMARY KEY,
-            section_id INTEGER PRIMARY KEY,
+            class_id NORMAL,
+            course_id INTEGER ,
+            branch_id INTEGER ,
+            semester INTEGER ,
+            section_id INTEGER ,
+            PRIMARY KEY (course_id, branch_id, semester, section_id)
             FOREIGN KEY (course_id) REFERENCES courses(id),
             FOREIGN KEY (branch_id) REFERENCES branches(id),
             FOREIGN KEY (section_id) REFERENCES sections(id)
@@ -89,22 +91,31 @@ db.serialize(() => {
     //  NEW STUDENT TABLE
     db.run(`
         CREATE TABLE IF NOT EXISTS students (
-            id INTEGER,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            roll_number TEXT,
-            PRIMARY KEY (id, roll_number)
+            roll_number TEXT UNIQUE NOT NULL,
+            username TEXT UNIQUE,
+            password TEXT DEFAULT 'password',
+            course_id INTEGER NOT NULL,
+            branch_id INTEGER NOT NULL,
+            semester INTEGER NOT NULL,
+            section_id INTEGER NOT NULL,
+            FOREIGN KEY (course_id) REFERENCES courses(id),
+            FOREIGN KEY (branch_id) REFERENCES branches(id),
+            FOREIGN KEY (section_id) REFERENCES sections(id)
         );
     `);
     //  SUBJECT MAPPING TABLE
     db.run(`
         CREATE TABLE IF NOT EXISTS subject_mapping (
-            subject_code TEXT PRIMARY KEY,
-            abbr TEXT,
-            name TEXT NOT NULL,
-            branch_id INTEGER,
-            course_id INTEGER,
-            FOREIGN KEY (branch_id) REFERENCES branches(id),
-            FOREIGN KEY (course_id) REFERENCES courses(id)
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            subject_id INTEGER NOT NULL,
+            course_id INTEGER NOT NULL,
+            branch_id INTEGER NOT NULL,
+            semester INTEGER NOT NULL,
+            FOREIGN KEY (subject_id) REFERENCES subjects(id),
+            FOREIGN KEY (course_id) REFERENCES courses(id),
+            FOREIGN KEY (branch_id) REFERENCES branches(id)
         );
     `);
     //  FACULTY TABLE
