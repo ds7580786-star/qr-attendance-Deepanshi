@@ -1,10 +1,9 @@
 import express from 'express';
 import db from '../utils/db.js';
-import utils from '../utils/in-memory-db.js';
 
 const router = express.Router();
 
-//Get Counts
+// Get Counts
 router.get('/stats', (req, res) => {
   const stats = {
     students: 0,
@@ -42,7 +41,7 @@ router.get('/stats', (req, res) => {
   });
 });
 
-//Get Students
+// Get Students
 router.get('/students', (req, res) => {
   db.all(
     `SELECT name, username, section
@@ -62,7 +61,7 @@ router.get('/students', (req, res) => {
   );
 });
 
-///Get Faculty
+// Get Faculty
 router.get('/faculty', (req, res) => {
   db.all(
     `SELECT name, username, subjectName
@@ -82,7 +81,7 @@ router.get('/faculty', (req, res) => {
   );
 });
 
-//Add Students
+// Add Student
 router.post('/add-student', (req, res) => {
   const { name, username, password, section } = req.body;
 
@@ -113,7 +112,7 @@ router.post('/add-student', (req, res) => {
   );
 });
 
-//Add Faculty
+// Add Faculty
 router.post('/add-faculty', (req, res) => {
   const { name, username, password, subjectName } = req.body;
 
@@ -139,44 +138,9 @@ router.post('/add-faculty', (req, res) => {
       return res.json({
         ok: true,
         message: 'Faculty added successfully',
-        });
+      });
     }
   );
 });
-
-
-  db.get(
-    `SELECT COUNT(*) AS count FROM users WHERE role = 'student'`,
-    (err, studentRow) => {
-      stats.students = studentRow.count;
-
-      db.get(
-        `SELECT COUNT(*) AS count FROM users WHERE role = 'faculty'`,
-        (err, facultyRow) => {
-          stats.faculty = facultyRow.count;
-
-          db.get(
-            `SELECT COUNT(*) AS count FROM sessions WHERE status = 'active'`,
-            (err, sessionRow) => {
-              stats.liveSessions = sessionRow.count;
-
-              db.get(
-                `SELECT COUNT(*) AS count FROM attendance`,
-                (err, attendanceRow) => {
-                  stats.attendance = attendanceRow.count;
-
-                  return res.json({
-                    ok: true,
-                    stats,
-                  });
-                },
-              );
-            },
-          );
-        },
-      );
-    },
-  );
-
 
 export default router;
