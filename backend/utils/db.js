@@ -94,8 +94,6 @@ db.serialize(() => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             roll_number TEXT UNIQUE NOT NULL,
-            username TEXT UNIQUE,
-            password TEXT DEFAULT 'password',
             course_id INTEGER NOT NULL,
             branch_id INTEGER NOT NULL,
             semester INTEGER NOT NULL,
