@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../utils/db.js';
+import utils from '../utils/in-memory-db.js';
 
 const router = express.Router();
 
@@ -142,4 +143,40 @@ router.post('/add-faculty', (req, res) => {
     }
   );
 });
+
+
+  db.get(
+    `SELECT COUNT(*) AS count FROM users WHERE role = 'student'`,
+    (err, studentRow) => {
+      stats.students = studentRow.count;
+
+      db.get(
+        `SELECT COUNT(*) AS count FROM users WHERE role = 'faculty'`,
+        (err, facultyRow) => {
+          stats.faculty = facultyRow.count;
+
+          db.get(
+            `SELECT COUNT(*) AS count FROM sessions WHERE status = 'active'`,
+            (err, sessionRow) => {
+              stats.liveSessions = sessionRow.count;
+
+              db.get(
+                `SELECT COUNT(*) AS count FROM attendance`,
+                (err, attendanceRow) => {
+                  stats.attendance = attendanceRow.count;
+
+                  return res.json({
+                    ok: true,
+                    stats,
+                  });
+                },
+              );
+            },
+          );
+        },
+      );
+    },
+  );
+
+
 export default router;

@@ -66,10 +66,23 @@
         <div>
           <p id="studentCount">Present: 0</p>
           <button id="add-manually-btn" type="button">Add Manually</button>
-          <button id="submit-attendance-btn" class="white-btn" type="button">
+          <button
+            id="submit-attendance-btn"
+            class="button-secondary"
+            type="button">
             Submit
           </button>
         </div>
+
+        <dialog id="manual-attendance-dialog">
+          <h3>Select students to add</h3>
+
+          <form method="dialog">
+            <ol id="manual-attendance-list"></ol>
+            <button id="add-selected-btn">Add</button>
+            <button id="closeDialog">Cancel</button>
+          </form>
+        </dialog>
 
         <ol id="studentList"></ol>
       </div>

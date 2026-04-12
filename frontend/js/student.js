@@ -26,7 +26,7 @@ let descriptor = await loadDescriptors(studentId);
 if (!descriptor) {
   const res = await fetch(`/api/students/descriptors?id=${studentId}`);
   const data = await res.json();
-  await saveDescriptors(studentId, JSON.parse(data));
+  await saveDescriptors(studentId, data);
   console.log('cached face descriptors');
   descriptor = await loadDescriptors(studentId);
 }
@@ -167,7 +167,6 @@ async function startFaceVerification(sessionId, section, cameraFingerprint) {
       startFaceVerification(sessionId, section, cameraFingerprint),
     );
 
-  if (navigator.vibrate) navigator.vibrate(40);
   stopCamera(video);
   scanResult.textContent = 'Submitting attendance...';
 
@@ -179,8 +178,6 @@ async function startFaceVerification(sessionId, section, cameraFingerprint) {
     cameraFingerprint,
     isFaceScanned: true,
   });
-
-  console.log(response);
 
   if (response.ok) {
     if (navigator.vibrate) navigator.vibrate(60);

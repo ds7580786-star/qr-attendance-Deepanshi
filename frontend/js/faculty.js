@@ -7,6 +7,9 @@ const canvas = document.querySelector('canvas');
 const liveSection = document.querySelector('.live-section');
 const studentList = document.querySelector('#studentList');
 const studentCount = document.querySelector('#studentCount');
+const addManuallyBtn = document.querySelector('#add-manually-btn');
+const dialog = document.querySelector('#manual-attendance-dialog');
+const addSelectedBtn = document.querySelector('#add-selected-btn');
 let sessionId = null;
 let qrTimer = null;
 
@@ -34,11 +37,15 @@ sections.forEach(sec => {
 const socket = io(location.origin);
 
 socket.on('connect', () => {
-  socket.emit('register_teacher');
+  socket.emit('register_teacher', sessionId);
 });
 
 // Dynamically generate html for attendance list
+const markedStudents = new Set();
+
 socket.on('attendance_update', data => {
+  markedStudents.add(data.studentId);
+
   const li = document.createElement('li');
   const span = document.createElement('span');
   span.textContent = `${data.studentName} (${data.time})`;
@@ -49,11 +56,16 @@ socket.on('attendance_update', data => {
   checkBox.checked = true;
   checkBox.dataset.id = data.studentId;
 
+  checkBox.addEventListener('change', () => {
+    span.classList.toggle('strike', !checkBox.checked);
+    updatePresentCount();
+  });
+
   li.appendChild(span);
   li.appendChild(checkBox);
   studentList.appendChild(li);
   li.scrollIntoView();
-  studentCount.textContent = `Present: ${studentList.children.length}`;
+  updatePresentCount();
 });
 
 // Start session
@@ -68,6 +80,7 @@ startBtn.addEventListener('click', async () => {
 
   const response = await postData('/api/session/start', { section, teacherId });
   sessionId = response.sessionId;
+  socket.emit('join_session', sessionId);
 
   beforeStart.style.display = 'none';
   afterStart.style.display = 'flex';
@@ -76,7 +89,49 @@ startBtn.addEventListener('click', async () => {
   renderQR(response);
 });
 
+addManuallyBtn.addEventListener('click', async () => {
+  const section = document.querySelector('#section').value;
+
+  const res = await fetch(`/api/students/${section}`);
+  const students = await res.json();
+
+  console.log(students);
+
+  const unmarkedStudents = students.filter(
+    s => !markedStudents.has(s.username),
+  );
+  console.log(unmarkedStudents);
+
+  showManualPopup(unmarkedStudents);
+});
+
+addSelectedBtn.addEventListener('click', async () => {
+  const section = document.querySelector('#section').value;
+  const selected = document.querySelectorAll(
+    '#manual-attendance-list input:checked',
+  );
+
+  const students = [];
+
+  selected.forEach(cb => {
+    students.push({
+      studentId: cb.value,
+      studentName: cb.dataset.name,
+      section,
+    });
+  });
+
+  await postData('/api/attendance/manual', {
+    sessionId: sessionId,
+    students: students,
+    section,
+  });
+
+  dialog.close();
+});
+
 // Submit attendance and end session
+
 const submitBtn = document.querySelector('#submit-attendance-btn');
 
 submitBtn.addEventListener('click', async () => {
@@ -94,6 +149,7 @@ submitBtn.addEventListener('click', async () => {
   if (!response.ok) return console.error('Finalize returned error:', data);
 
   alert('✔ Attendance submitted successfully');
+  if (document.fullscreenElement) toggleFullScreen();
   clearAttendanceUI();
 });
 
@@ -136,4 +192,35 @@ function clearAttendanceUI() {
   afterStart.style.display = 'none';
   beforeStart.style.display = 'flex';
   clearTimeout(qrTimer);
+}
+
+function updatePresentCount() {
+  const checkedStudents = document.querySelectorAll(
+    '#studentList input[type="checkbox"]:checked',
+  ).length;
+
+  studentCount.textContent = `Present: ${checkedStudents}`;
+}
+
+function showManualPopup(students) {
+  const container = document.querySelector('#manual-attendance-list');
+  container.innerHTML = '';
+
+  students.forEach(student => {
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    span.textContent = student.name;
+    span.dataset.id = student.username;
+
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    checkBox.value = student.username;
+    checkBox.dataset.name = student.name;
+
+    li.appendChild(span);
+    li.appendChild(checkBox);
+    container.appendChild(li);
+  });
+
+  dialog.showModal();
 }

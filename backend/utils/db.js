@@ -3,9 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const _dirname = path.dirname(__filename);
 
-const dbPath = path.join(__dirname, '../attendance.db');
+const dbPath = path.join(_dirname, '../attendance.db');
 const db = new sqlite3.Database(
   dbPath,
   sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
@@ -69,11 +69,10 @@ db.serialize(() => {
     //Classes Table
     db.run(`
         CREATE TABLE IF NOT EXISTS classes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            course_id INTEGER,
-            branch_id INTEGER,
-            semester INTEGER,
-            section_id INTEGER,
+            course_id INTEGER PRIMARY KEY,
+            branch_id INTEGER PRIMARY KEY,
+            semester INTEGER PRIMARY KEY,
+            section_id INTEGER PRIMARY KEY,
             FOREIGN KEY (course_id) REFERENCES courses(id),
             FOREIGN KEY (branch_id) REFERENCES branches(id),
             FOREIGN KEY (section_id) REFERENCES sections(id)
@@ -86,6 +85,41 @@ db.serialize(() => {
             section_name TEXT NOT NULL,
             label TEXT
          );
+    `);
+    //  NEW STUDENT TABLE
+    db.run(`
+        CREATE TABLE IF NOT EXISTS students (
+            id INTEGER,
+            name TEXT NOT NULL,
+            roll_number TEXT,
+            PRIMARY KEY (id, roll_number)
+        );
+    `);
+    //  SUBJECT MAPPING TABLE
+    db.run(`
+        CREATE TABLE IF NOT EXISTS subject_mapping (
+            subject_code TEXT PRIMARY KEY,
+            abbr TEXT,
+            name TEXT NOT NULL,
+            branch_id INTEGER,
+            course_id INTEGER,
+            FOREIGN KEY (branch_id) REFERENCES branches(id),
+            FOREIGN KEY (course_id) REFERENCES courses(id)
+        );
+    `);
+    //  FACULTY TABLE
+    db.run(`
+        CREATE TABLE IF NOT EXISTS faculty (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            roll_number TEXT,
+            course_id INTEGER,
+            branch_id INTEGER,
+            subject_id TEXT,
+            FOREIGN KEY (course_id) REFERENCES courses(id),
+            FOREIGN KEY (branch_id) REFERENCES branches(id),
+            FOREIGN KEY (subject_id) REFERENCES subject_mapping(subject_code)
+        );
     `);
 });
 
