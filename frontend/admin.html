@@ -1,249 +1,1015 @@
 <!doctype html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Portal</title>
-    <link
-      href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="css/general.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/sidebar.css" />
-    <link rel="stylesheet" href="css/card.css" />
-    <link rel="stylesheet" href="css/button.css" />
-    <link rel="stylesheet" href="css/admin.css" />
-    <script src="utils/auth-guard.js" type="module"></script>
-    <script src="utils/cache-models.js"></script>
-    <script src="/utils/face-api.js"></script>
-  </head>
 
-  <body>
-    <header>
-      <div class="left-section">
-        <img
-          style="cursor: pointer"
-          src="icons/hamburger-menu.svg"
-          alt="Menu" />
-      </div>
-      <div class="middle-section">Admin Dashboard</div>
-      <div class="right-section">
-        <span class="user-name">Welcome, <b>Admin</b></span>
-      </div>
-    </header>
+<head>
 
-    <nav class="sidebar">
-<<<<<<< HEAD
-      <a class="sidebar-content" href="students.html">
-        <img src="icons/student.svg" alt="Students" />
-        <div>Students</div>
-      </a>
-      <a class="sidebar-content" href="faculties.html">
-=======
-      <div class="sidebar-content" onclick="location.reload()">
-        <img src="icons/home.svg" alt="Home" />
-        <div>Home</div>
-      </div>
-      <div class="sidebar-content student-nav">
-        <img src="icons/student.svg" alt="Students" />
-        <div>Students</div>
-      </div>
-      <div class="sidebar-content faculty-nav">
->>>>>>> 52188eebe60a14cf740e3461e928bac85b52146e
-        <img src="icons/teacher.svg" alt="Faculty" />
-        <div>Faculties</div>
-      </a>
-      <div class="sidebar-content">
-        <img src="icons/courses.svg" alt="Courses" />
-<<<<<<< HEAD
-        <div>Branch</div>
-=======
-        <div>Attendance</div>
->>>>>>> 52188eebe60a14cf740e3461e928bac85b52146e
-      </div>
-      <div class="sidebar-content logout-btn">
-        <img src="icons/logout-black.svg" alt="Logout" />
-        <div>Log out</div>
-      </div>
-    </nav>
+  <meta charset="UTF-8" />
 
-    <main>
-<<<<<<< HEAD
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Admin Portal</title>
+
+
+  <!-- Grid.js CSS -->
+  <link
+    href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
+    rel="stylesheet"
+  />
+
+
+  <!-- Existing CSS -->
+  <link
+    rel="stylesheet"
+    href="css/general.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="css/header.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="css/sidebar.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="css/card.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="css/button.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="css/admin.css"
+  />
+
+
+  <!-- Existing utilities -->
+  <script
+    src="utils/auth-guard.js"
+    type="module">
+  </script>
+
+  <script src="utils/cache-models.js"></script>
+
+  <script src="/utils/face-api.js"></script>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==================== HEADER ==================== -->
+
+  <header>
+
+    <div class="left-section">
+
+      <img
+        style="cursor: pointer"
+        src="icons/hamburger-menu.svg"
+        alt="Menu"
+      />
+
+    </div>
+
+
+    <div class="middle-section">
+      Admin Dashboard
+    </div>
+
+
+    <div class="right-section">
+
+      <span class="user-name">
+        Welcome, <b>Admin</b>
+      </span>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- ==================== SIDEBAR ==================== -->
+
+  <nav class="sidebar">
+
+
+    <!-- Home -->
+
+    <div
+      class="sidebar-content"
+      onclick="location.reload()"
+    >
+
+      <img
+        src="icons/home.svg"
+        alt="Home"
+      />
+
+      <div>Home</div>
+
+    </div>
+
+
+
+    <!-- Students -->
+
+    <div class="sidebar-content student-nav">
+
+      <img
+        src="icons/student.svg"
+        alt="Students"
+      />
+
+      <div>Students</div>
+
+    </div>
+
+
+
+    <!-- Faculty -->
+
+    <div class="sidebar-content faculty-nav">
+
+      <img
+        src="icons/teacher.svg"
+        alt="Faculty"
+      />
+
+      <div>Faculties</div>
+
+    </div>
+
+
+
+    <!-- Subject Mapping -->
+
+    <div class="sidebar-content subject-nav">
+
+      <img
+        src="icons/courses.svg"
+        alt="Subject Master"
+      />
+
+      <div>Subjects</div>
+
+    </div>
+
+
+
+    <!-- Course Mapping -->
+
+    <div class="sidebar-content course-nav">
+
+      <img
+        src="icons/courses.svg"
+        alt="Course Master"
+      />
+
+      <div>Courses</div>
+
+    </div>
+
+    <!-- Branch Mapping -->
+
+    <div class="sidebar-content branch-nav">
+
+      <img
+        src="icons/courses.svg"
+        alt="Branch Master"
+      />
+
+      <div>Branches</div>
+
+    </div>
+
+    <!-- Attendance -->
+
+    <div class="sidebar-content">
+
+      <img
+        src="icons/courses.svg"
+        alt="Attendance"
+      />
+
+      <div>Attendance</div>
+
+    </div>
+
+
+
+    <!-- Logout -->
+
+    <div class="sidebar-content logout-btn">
+
+      <img
+        src="icons/logout-black.svg"
+        alt="Logout"
+      />
+
+      <div>Log out</div>
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- ==================== MAIN ==================== -->
+
+  <main>
+
+
+    <!-- ==================== HOME ==================== -->
+
+    <section class="homepage">
+
+
       <section class="home-cards">
-        <a href="students.html" class="link-card">
-          <p class="sub-title">Students</p>
-          <p class="title" id="studentCount">0</p>
-        </a>
 
 
-        <a href="faculties.html" class="link-card">
-          <p class="sub-title">Faculties</p>
-          <p class="title" id="facultyCount">0</p>
-        </a>
+        <!-- Students -->
 
-        <div class="link-card">
-          <p class="sub-title">Branch</p>
-          <p class="title">58</p>
+        <div class="link-card student-link-card">
+
+          <p class="sub-title">
+            Students
+          </p>
+
+          <p
+            class="title"
+            id="studentCount">
+          </p>
+
         </div>
 
-        <div class="link-card">
-          <p class="sub-title">Live sessions</p>
-          <p class="title" id="liveSessionCount">0</p>
+
+
+        <!-- Faculty -->
+
+        <div class="link-card faculty-link-card">
+
+          <p class="sub-title">
+            Faculty
+          </p>
+
+          <p
+            class="title"
+            id="facultyCount">
+          </p>
+
         </div>
-=======
-      <section class="homepage">
-        <section class="home-cards">
-          <div class="link-card student-link-card">
-            <p class="sub-title">Students</p>
-            <p class="title" id="studentCount"></p>
-          </div>
 
-          <div class="link-card faculty-link-card">
-            <p class="sub-title">Faculty</p>
-            <p class="title" id="facultyCount"></p>
-          </div>
 
-          <div class="link-card">
-            <p class="sub-title">Attendance</p>
-            <p class="title" id="attendanceCount">58</p>
-          </div>
 
-          <div class="link-card">
-            <p class="sub-title">Live sessions</p>
-            <p class="title" id="liveSessionCount"></p>
-          </div>
-        </section>
+        <!-- Attendance -->
 
-        <section class="activities">
-          <p>Activities</p>
+        <div class="link-card">
+
+          <p class="sub-title">
+            Attendance
+          </p>
+
+          <p
+            class="title"
+            id="attendanceCount">
+            0
+          </p>
+
+        </div>
+
+
+
+        <!-- Live Sessions -->
+
+        <div class="link-card">
+
+          <p class="sub-title">
+            Live sessions
+          </p>
+
+          <p
+            class="title"
+            id="liveSessionCount">
+          </p>
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- Activities -->
+
+      <section class="activities">
+
+        <p>Activities</p>
+
+        <div>
+
+          <ul>
+
+            <li>
+              ✔️ Attendance finalised for CSE101, 10:22 AM
+            </li>
+
+            <li>
+              ➕ Student added: Yash Sharma
+            </li>
+
+            <li>
+              🕒 Session started for DBMS, Faculty: Mukesh Rathor
+            </li>
+
+          </ul>
+
+        </div>
+
+      </section>
+
+
+    </section>
+
+
+
+    <!-- ==================== STUDENTS ==================== -->
+
+    <section
+      class="students"
+      style="display: none"
+    >
+
+      <h2>Students</h2>
+
+
+      <button id="addStudentBtn">
+        + Add Student
+      </button>
+
+
+      <div id="studentsTable"></div>
+
+
+      <dialog
+        id="studentModal"
+        class="modal"
+      >
+
+        <h3>Add Student</h3>
+
+
+        <form method="dialog">
+
+
           <div>
-            <!-- Recent activities will be listed here -->
-            <ul>
-              <li>✔️ Attendance finalised for CSE101, 10:22 AM</li>
-              <li>➕ Student added: Yash Sharma</li>
-              <li>🕒 Session started for DBMS, Faculty: Mukesh Rathor</li>
-            </ul>
+
+            Name:
+
+            <input
+              type="text"
+              id="studentName"
+              required
+            />
+
           </div>
-        </section>
->>>>>>> 52188eebe60a14cf740e3461e928bac85b52146e
-      </section>
 
-      <section class="students" style="display: none">
-        <h2>Students</h2>
-        <button id="addStudentBtn">+ Add Student</button>
-        <div id="studentsTable"></div>
 
-        <dialog id="studentModal" class="modal">
-          <h3>Add Student</h3>
 
-          <form method="dialog">
-            <div>
-              Name:
-              <input type="text" id="studentName" required />
-            </div>
+          <div>
 
-            <div>
-              Username:
-              <input type="text" id="studentUsername" required />
-            </div>
+            Username:
 
-            <div>
-              Password:
-              <input type="text" id="studentPassword" />
-            </div>
+            <input
+              type="text"
+              id="studentUsername"
+              required
+            />
 
-            <div>
-              Section:
-              <input type="text" id="studentSection" required />
-            </div>
+          </div>
 
-            <input type="file" id="faceImages" multiple accept="image/*" />
-            <p id="faceStatus">No images uploaded</p>
-            <div>
-              <button id="saveStudentBtn" type="button">Save student</button>
-              <button id="closeStudentModalBtn" class="button-secondary">
-                Cancel
-              </button>
-            </div>
-          </form>
-        </dialog>
-      </section>
 
-      <section class="faculty" style="display: none">
-        <h2>Faculty</h2>
-        <button id="addFacultyBtn">+ Add Faculty</button>
-        <div id="facultyTable"></div>
 
-        <dialog id="facultyModal" class="modal">
-          <h3>Add Faculty</h3>
+          <div>
 
-          <form method="dialog">
-            <div>
-              Name:
-              <input type="text" id="facultyName" required />
-            </div>
+            Password:
 
-            <div>
-              Username:
-              <input type="text" id="facultyUsername" required />
-            </div>
+            <input
+              type="text"
+              id="studentPassword"
+            />
 
-            <div>
-              Password:
-              <input type="text" id="facultyPassword" required />
-            </div>
+          </div>
 
-            <div>
-              Subject:
-              <input type="text" id="facultySubject" required />
-            </div>
 
-            <div>
-              Section:
-              <input type="text" id="facultySection" required />
-            </div>
 
-            <div>
-              <button id="saveFacultyBtn">Save</button>
-              <button id="closeFacultyModalBtn" class="button-secondary">
-                Cancel
-              </button>
-            </div>
-          </form>
-        </dialog>
-      </section>
+          <div>
 
-      <section class="attendance"></section>
-    </main>
+            Section:
 
-<<<<<<< HEAD
-    <script type="module">
-  import { getCurrentUser, logout } from '/utils/storage.js';
+            <input
+              type="text"
+              id="studentSection"
+              required
+            />
 
-  document.querySelector('.user-name b').textContent =
-    getCurrentUser().name || 'Admin';
+          </div>
 
-  document.querySelector('.logout-btn').addEventListener('click', () => logout());
 
-  async function getStats() {
-    const response = await fetch('/api/admin/stats');
-    const data = await response.json();
 
-    if (!data.ok) {
-      console.error(data.error);
-      return;
-    }
+          <input
+            type="file"
+            id="faceImages"
+            multiple
+            accept="image/*"
+          />
 
-    document.getElementById('studentCount').textContent = data.stats.students;
-    document.getElementById('facultyCount').textContent = data.stats.faculty;
-    document.getElementById('liveSessionCount').textContent = data.stats.liveSessions;
-  }
 
-  getStats();
-</script>
-=======
-    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-    <script type="module" src="js/admin.js"></script>
->>>>>>> 52188eebe60a14cf740e3461e928bac85b52146e
-  </body>
+          <p id="faceStatus">
+            No images uploaded
+          </p>
+
+
+
+          <div>
+
+            <button
+              id="saveStudentBtn"
+              type="button"
+            >
+              Save student
+            </button>
+
+
+            <button
+              id="closeStudentModalBtn"
+              type="button"
+              class="button-secondary"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </dialog>
+
+    </section>
+
+
+
+    <!-- ==================== FACULTY ==================== -->
+
+    <section
+      class="faculty"
+      style="display: none"
+    >
+
+      <h2>Faculty</h2>
+
+
+      <button id="addFacultyBtn">
+        + Add Faculty
+      </button>
+
+
+      <div id="facultyTable"></div>
+
+
+      <dialog
+        id="facultyModal"
+        class="modal"
+      >
+
+        <h3>Add Faculty</h3>
+
+
+        <form method="dialog">
+
+
+          <div>
+
+            Name:
+
+            <input
+              type="text"
+              id="facultyName"
+              required
+            />
+
+          </div>
+
+
+
+          <div>
+
+            Username:
+
+            <input
+              type="text"
+              id="facultyUsername"
+              required
+            />
+
+          </div>
+
+
+
+          <div>
+
+            Password:
+
+            <input
+              type="text"
+              id="facultyPassword"
+              required
+            />
+
+          </div>
+
+          <div>
+
+            Subject:
+
+            <select
+            id="facultySubject"
+            required
+            >
+              <option value="">Select Subject</option>
+            </select>
+
+          </div>
+
+          <div>
+
+            <button
+              id="saveFacultyBtn"
+              type="button"
+            >
+              Save
+            </button>
+
+
+            <button
+              id="closeFacultyModalBtn"
+              type="button"
+              class="button-secondary"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </dialog>
+
+    </section>
+
+
+
+    <!-- ==================== SUBJECT MASTER ==================== -->
+
+    <section
+      class="subjects"
+      style="display: none"
+    >
+
+      <h2>Subjects</h2>
+
+
+      <button id="addSubjectBtn">
+        + Add Subject
+      </button>
+
+
+      <div id="subjectsTable"></div>
+
+
+      <!-- Subject Modal -->
+
+      <dialog
+        id="subjectModal"
+        class="modal"
+      >
+
+        <h3>Add Subject</h3>
+
+
+        <form method="dialog">
+
+
+          <!-- Subject Code -->
+
+          <div>
+
+            Subject Code:
+
+            <input
+              type="text"
+              id="subjectCode"
+              placeholder="e.g. KCS501"
+              required
+            />
+
+          </div>
+
+
+
+          <!-- Abbreviation -->
+
+          <div>
+
+            Abbreviation:
+
+            <input
+              type="text"
+              id="subjectAbbr"
+              placeholder="e.g. DBMS"
+            />
+
+          </div>
+
+
+
+          <!-- Subject Name -->
+
+          <div>
+
+            Subject Name:
+
+            <input
+              type="text"
+              id="subjectName"
+              placeholder="e.g. Database Management System"
+              required
+            />
+
+          </div>
+
+
+
+          <!-- Course -->
+
+          <div class="form-group">
+
+            <label for="subjectCourse">
+              Course
+            </label>
+
+            <select
+              id="subjectCourse"
+              required
+            >
+
+              <option value="">
+                Select Course
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- Semester -->
+
+          <label for="subjectSemester">
+            Semester:
+          </label>
+
+          <select id="subjectSemester">
+
+            <option value="">
+              Select Semester
+            </option>
+
+            <option value="1">1</option>
+
+            <option value="2">2</option>
+
+            <option value="3">3</option>
+
+            <option value="4">4</option>
+
+            <option value="5">5</option>
+
+            <option value="6">6</option>
+
+            <option value="7">7</option>
+
+            <option value="8">8</option>
+
+          </select>
+
+
+
+          <!-- Branch -->
+
+          <div class="form-group">
+
+            <label for="subjectBranch">
+              Branch
+            </label>
+
+            <select
+              id="subjectBranch"
+              required
+            >
+
+              <option value="">
+                Select Branch
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- Buttons -->
+
+          <div>
+
+            <button
+              id="saveSubjectBtn"
+              type="button"
+            >
+              Save Subject
+            </button>
+
+
+            <button
+              id="closeSubjectModalBtn"
+              type="button"
+              class="button-secondary"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </dialog>
+
+    </section>
+
+
+
+    <!-- ==================== COURSE MAPPING ==================== -->
+
+    <section
+      class="courses"
+      style="display: none"
+    >
+
+      <h2>Courses</h2>
+
+
+      <button id="addCourseBtn">
+        + Add Course
+      </button>
+
+
+      <div id="coursesTable"></div>
+
+
+      <!-- Course Modal -->
+
+      <dialog
+        id="courseModal"
+        class="modal"
+      >
+
+        <h3>Add Course</h3>
+
+
+        <form method="dialog">
+
+
+          <!-- Course Name -->
+
+          <div>
+
+            <label for="courseName">
+              Course Name:
+            </label>
+
+            <input
+              type="text"
+              id="courseName"
+              placeholder="e.g. Bachelor of Technology"
+              required
+            />
+
+          </div>
+
+
+
+          <!-- Abbreviation -->
+
+          <div>
+
+            <label for="courseAbbr">
+              Abbreviation:
+            </label>
+
+            <input
+              type="text"
+              id="courseAbbr"
+              placeholder="e.g. B.Tech"
+            />
+
+          </div>
+
+
+
+          <!-- Buttons -->
+
+          <div>
+
+            <button
+              id="saveCourseBtn"
+              type="button"
+            >
+              Save Course
+            </button>
+
+
+            <button
+              id="closeCourseModalBtn"
+              type="button"
+              class="button-secondary"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </dialog>
+
+    </section>
+
+    <!-- ==================== BRANCH MAPPING ==================== -->
+
+<section
+  class="branches"
+  style="display: none"
+>
+
+  <h2>Branches</h2>
+
+  <button id="addBranchBtn">
+    + Add Branch
+  </button>
+
+  <div id="branchesTable"></div>
+
+
+  <!-- Branch Modal -->
+
+  <dialog
+    id="branchModal"
+    class="modal"
+  >
+
+    <h3>Add Branch</h3>
+
+    <form method="dialog">
+
+      <!-- Course -->
+
+      <div class="form-group">
+
+        <label for="branchCourse">
+          Course:
+        </label>
+
+        <select
+          id="branchCourse"
+          required
+        >
+
+          <option value="">
+            Select Course
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Branch Name -->
+
+      <div>
+
+        <label for="branchName">
+          Branch Name:
+        </label>
+
+        <input
+          type="text"
+          id="branchName"
+          placeholder="e.g. Computer Science and Engineering"
+          required
+        />
+
+      </div>
+
+
+      <!-- Abbreviation -->
+
+      <div>
+
+        <label for="branchAbbr">
+          Abbreviation:
+        </label>
+
+        <input
+          type="text"
+          id="branchAbbr"
+          placeholder="e.g. CSE"
+        />
+
+      </div>
+
+
+      <!-- Buttons -->
+
+          <div>
+
+            <button
+              id="saveBranchBtn"
+              type="button"
+            >
+              Save Branch
+            </button>
+
+            <button
+             id="closeBranchModalBtn"
+             type="button"
+             class="button-secondary"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
+      </dialog>
+
+    </section>
+
+    <!-- ==================== ATTENDANCE ==================== -->
+
+    <section
+      class="attendance"
+      style="display: none"
+    >
+    </section>
+
+
+  </main>
+
+
+
+  <!-- ==================== GRID.JS ==================== -->
+
+  <script
+    src="https://unpkg.com/gridjs/dist/gridjs.umd.js">
+  </script>
+
+
+
+  <!-- ==================== ADMIN JS ==================== -->
+
+  <script
+    type="module"
+    src="js/admin.js">
+  </script>
+
+
+</body>
+
 </html>

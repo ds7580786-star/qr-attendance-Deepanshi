@@ -15,7 +15,8 @@ const db = new sqlite3.Database(
   },
 );
 
-db.serialize(() => {
+db.serialize(() => { 
+
  db.run(`
         CREATE TABLE IF NOT EXISTS users (
             name TEXT,
@@ -69,7 +70,7 @@ db.serialize(() => {
     //Classes Table
     db.run(`
         CREATE TABLE IF NOT EXISTS classes (
-            class_id NORMAL,
+            class_id INTEGER PRIMARY KEY,
             course_id INTEGER ,
             branch_id INTEGER ,
             semester INTEGER ,
@@ -94,13 +95,12 @@ db.serialize(() => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             roll_number TEXT UNIQUE NOT NULL,
-            course_id INTEGER NOT NULL,
-            branch_id INTEGER NOT NULL,
-            semester INTEGER NOT NULL,
-            section_id INTEGER NOT NULL,
-            FOREIGN KEY (course_id) REFERENCES courses(id),
-            FOREIGN KEY (branch_id) REFERENCES branches(id),
-            FOREIGN KEY (section_id) REFERENCES sections(id)
+            s_username TEXT NOT NULL,
+            s_password TEXT NOT NULL,
+            class_id INTEGER NOT NULL,
+            FOREIGN KEY (class_id) REFERENCES classes(id),
+            FOREIGN KEY (s_username) REFERENCES users(username),
+            FOREIGN KEY (s_password) REFERENCES users(password)
         );
     `);
     //  SUBJECT MAPPING TABLE
